@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="currencyCalculatorViewModel"
+            type="com.paypay.testApplication.ui.currencyCalculator.CurrencyCalculatorViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.paypay.testApplication.utils.CustomSwipeRefreshLayout
+            android:id="@+id/fragment_swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/currency_amount_input_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="10dp"
+                        android:hint="@string/enter_amount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/currency_amount_input_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="@={currencyCalculatorViewModel.etAmount}"
+                            android:textAlignment="textEnd" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/currency_name_lable_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="@string/select_currency"
+                        app:layout_constraintStart_toStartOf="@id/currency_list_spinner"
+                        app:layout_constraintTop_toBottomOf="@id/currency_amount_input_layout" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/rectangle_view"
+                        app:layout_constraintBottom_toBottomOf="@id/currency_list_spinner"
+                        app:layout_constraintEnd_toEndOf="@id/currency_list_spinner"
+                        app:layout_constraintStart_toStartOf="@id/currency_list_spinner"
+                        app:layout_constraintTop_toTopOf="@id/currency_list_spinner" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/currency_list_spinner"
+                        android:layout_width="250dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/currency_name_lable_tv" />
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/calculate_btn"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="26dp"
+                        android:onClick="@{() -> currencyCalculatorViewModel.onClickCalculateCurrency()}"
+                        android:text="@string/calculate"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/currency_list_spinner" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/converted_currency_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="12dp"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/calculate_btn"
+                        app:spanCount="2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+        </com.paypay.testApplication.utils.CustomSwipeRefreshLayout>
+
+        <com.paypay.testApplication.utils.CustomProgressBar
+            android:id="@+id/fragment_home_parent_clpb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibility="@{currencyCalculatorViewModel.isLoading}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

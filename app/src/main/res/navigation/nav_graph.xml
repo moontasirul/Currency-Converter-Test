@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/cityAndFoodListFragment">
+
+    <fragment
+        android:id="@+id/cityAndFoodListFragment"
+        android:name="com.paypay.testApplication.ui.currencyCalculator.CurrencyCalculatorFragment"
+        android:label="Wealth Park App"
+        tools:layout="@layout/fragment_currency_calculator">
+        <action
+            android:id="@+id/action_cityAndFoodListFragment_to_DetailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.paypay.testApplication.ui.details.DetailsFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_details" />
+
+    <!--    <argument-->
+    <!--        android:name="cityItem"-->
+    <!--        app:argType="com.wealthPark.testApplication.data.local.model.CityItem"/>-->
+
+</navigation>
