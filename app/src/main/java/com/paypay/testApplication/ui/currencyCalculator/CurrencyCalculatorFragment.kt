@@ -1,7 +1,6 @@
 package com.paypay.testApplication.ui.currencyCalculator
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,28 +9,17 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import com.paypay.testApplication.R
 import com.paypay.testApplication.data.domainModel.ConvertedCurrency
-import com.paypay.testApplication.data.local.database.entity.CurrencyRate
 import com.paypay.testApplication.databinding.FragmentCurrencyCalculatorBinding
 import com.paypay.testApplication.utils.CustomSwipeRefreshLayout
 import com.paypay.testApplication.utils.dialogUtils.CustomDialogCallback
 import com.paypay.testApplication.utils.dialogUtils.CustomDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CurrencyCalculatorFragment : Fragment(),
     ICurrencyCalculatorNavigator, CustomSwipeRefreshLayout.Event {
-
-    companion object {
-        const val CITY_ITEM = "CITY_ITEM"
-        const val FOOD_ITEM = "FOOD_ITEM"
-    }
 
     private lateinit var cityAndFoodBinding: FragmentCurrencyCalculatorBinding
     private val viewModel by viewModels<CurrencyCalculatorViewModel>()

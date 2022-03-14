@@ -1,9 +1,7 @@
 package com.paypay.testApplication.ui.currencyCalculator
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.paypay.testApplication.data.domainModel.ConvertedCurrency
 import com.paypay.testApplication.data.local.database.entity.CurrencyRate
 import com.paypay.testApplication.data.repository.AppRepository
@@ -11,7 +9,10 @@ import com.paypay.testApplication.ui.base.BaseViewModel
 import com.paypay.testApplication.utils.AppEnum
 import com.paypay.testApplication.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -44,7 +45,7 @@ class CurrencyCalculatorViewModel @Inject constructor(
             }
             AppEnum.API_CALL_STATUS.ERROR.name -> {
                 isLoading.value = false
-                //  response.message?.let { navigator.messageDialog(it) }
+                response.message?.let { navigator.messageDialog(it) }
             }
             AppEnum.API_CALL_STATUS.LOADING.name -> {
                 isLoading.value = true
