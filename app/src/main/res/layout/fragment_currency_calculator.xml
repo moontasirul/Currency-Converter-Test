@@ -43,6 +43,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
+                            android:maxLines="1"
+                            android:maxLength="100"
                             android:text="@={currencyCalculatorViewModel.etAmount}"
                             android:textAlignment="textEnd" />
                     </com.google.android.material.textfield.TextInputLayout>

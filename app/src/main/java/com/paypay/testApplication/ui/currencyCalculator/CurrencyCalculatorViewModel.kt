@@ -71,19 +71,25 @@ class CurrencyCalculatorViewModel @Inject constructor(
             val selectedCurrency = currencyList.filter {
                 tvCurrencyName.value?.let { it1 -> it.currency?.contains(it1) } == true
             }
-            val calculateWithUSD = etAmount.value?.let { name ->
-                selectedCurrency[0].currencyValue?.toDouble()?.let {
-                    name.toDouble().div(it)
+            var calculateWithUSD = 0.0
+            if (!selectedCurrency.isNullOrEmpty()) {
+                etAmount.value?.let { name ->
+                    selectedCurrency[0].currencyValue?.toDouble()?.let {
+                        name.toDouble().div(it)
+                    }
+                }?.let {
+                    calculateWithUSD = it
                 }
             }
+
             val convertedList = arrayListOf<ConvertedCurrency>()
             for (cItem in currencyList) {
                 val finalOutput =
                     cItem.currencyValue?.let { calculateWithUSD?.times(it.toDouble()) }
                 convertedList.add(ConvertedCurrency(cItem.currency, finalOutput.toString()))
-                navigator.onShowList(convertedList)
-                isLoading.value = false
             }
+            navigator.onShowList(convertedList)
+            isLoading.value = false
         }
     }
 
