@@ -42,7 +42,7 @@
                             android:id="@+id/currency_amount_input_et"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:maxLines="1"
                             android:maxLength="100"
                             android:text="@={currencyCalculatorViewModel.etAmount}"
