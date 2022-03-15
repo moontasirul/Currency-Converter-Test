@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CurrencyCalculatorFragment : Fragment(),
     ICurrencyCalculatorNavigator, CustomSwipeRefreshLayout.Event {
 
-    private lateinit var cityAndFoodBinding: FragmentCurrencyCalculatorBinding
+    private lateinit var currencyBinding: FragmentCurrencyCalculatorBinding
     private val viewModel by viewModels<CurrencyCalculatorViewModel>()
     private lateinit var convertedCurrencyAdapter: ConvertedCurrencyRecyclerViewAdapter
 
@@ -29,11 +29,11 @@ class CurrencyCalculatorFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        cityAndFoodBinding = FragmentCurrencyCalculatorBinding.inflate(layoutInflater)
-        cityAndFoodBinding.lifecycleOwner = this
-        cityAndFoodBinding.currencyCalculatorViewModel = viewModel
-        cityAndFoodBinding.fragmentSwipeContainer.setEventListener(this)
-        return cityAndFoodBinding.root
+        currencyBinding = FragmentCurrencyCalculatorBinding.inflate(layoutInflater)
+        currencyBinding.lifecycleOwner = this
+        currencyBinding.currencyCalculatorViewModel = viewModel
+        currencyBinding.fragmentSwipeContainer.setEventListener(this)
+        return currencyBinding.root
     }
 
 
@@ -48,7 +48,7 @@ class CurrencyCalculatorFragment : Fragment(),
 
     override fun setupObservers() {
         viewModel.currencyResponse.observe(requireActivity()) { response ->
-            viewModel.getCityResponse(response)
+            viewModel.getCurrencyResponse(response)
             setupCurrencyList()
         }
     }
@@ -95,19 +95,25 @@ class CurrencyCalculatorFragment : Fragment(),
             val adapter =
                 ArrayAdapter<String>(it, android.R.layout.simple_spinner_dropdown_item, cList)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            cityAndFoodBinding.currencyListSpinner.adapter = adapter
+            currencyBinding.currencyListSpinner.adapter = adapter
 
-            cityAndFoodBinding?.currencyListSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                override fun onNothingSelected(parent: AdapterView<*>?) {
+            currencyBinding?.currencyListSpinner?.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                    }
+
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        val itemName = parent?.getItemAtPosition(position)
+                        viewModel.tvCurrencyName.value = itemName.toString()
+                    }
 
                 }
-
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val itemName =  parent?.getItemAtPosition(position)
-                    viewModel.tvCurrencyName.value = itemName.toString()
-                }
-
-            }
         }
     }
 
@@ -119,7 +125,7 @@ class CurrencyCalculatorFragment : Fragment(),
     override fun onShowList(convertedList: List<ConvertedCurrency>) {
         viewModel.isDataFetching.set(true)
         convertedCurrencyAdapter = ConvertedCurrencyRecyclerViewAdapter()
-        cityAndFoodBinding.convertedCurrencyRecyclerView.adapter = convertedCurrencyAdapter
+        currencyBinding.convertedCurrencyRecyclerView.adapter = convertedCurrencyAdapter
         convertedCurrencyAdapter.clearItems()
         convertedCurrencyAdapter.addItems(convertedList)
     }

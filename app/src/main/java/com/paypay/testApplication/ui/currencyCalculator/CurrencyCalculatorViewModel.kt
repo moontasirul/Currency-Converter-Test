@@ -31,7 +31,7 @@ class CurrencyCalculatorViewModel @Inject constructor(
     var etAmount = MutableLiveData<String>()
     var tvCurrencyName = MutableLiveData<String>()
 
-    fun getCityResponse(response: Resource<List<CurrencyRate>>) {
+    fun getCurrencyResponse(response: Resource<List<CurrencyRate>>) {
         isLoading.value = true
         when (response.status.name) {
             AppEnum.API_CALL_STATUS.SUCCESS.name -> {

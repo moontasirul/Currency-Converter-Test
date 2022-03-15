@@ -61,7 +61,7 @@ class CurrencyCalculatorViewModelTest {
     @Test
     fun onResponseReceived_checkFailedState_isError() {
         Mockito.`when`(
-            currencyCalculatorViewModel.getCityResponse(
+            currencyCalculatorViewModel.getCurrencyResponse(
                 Resource(
                     status = Resource.Status.SUCCESS,
                     data = null,

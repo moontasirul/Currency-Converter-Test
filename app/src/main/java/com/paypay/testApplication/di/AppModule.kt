@@ -89,7 +89,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    internal fun provideCityDao(context: Context): CurrencyDao {
+    internal fun provideCurrencyDao(context: Context): CurrencyDao {
         return provideDatabase(context).currencyDao()
     }
 }

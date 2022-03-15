@@ -50,8 +50,8 @@ class ConvertedCurrencyRecyclerViewAdapter() :
     /**
      * Adapter Listener
      */
-    interface CityItemAdapterListener {
-        fun onCityContent(mCityListModel: CurrencyRate)
+    interface CurrencyItemAdapterListener {
+        fun onCurrencyContent(mCurrencyListModel: CurrencyRate)
         fun onRetryClick()
     }
 
